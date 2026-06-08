@@ -1,0 +1,5 @@
+robot_control:
+  ros__parameters:
+    serial_port: /dev/ttyUSB0
+    baudrate: 115200
+    wheel_separation: 190.0
