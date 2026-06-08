@@ -19,6 +19,43 @@ def generate_launch_description():
         output='screen',
     )
 
+    usb_cam_node = Node(
+        package='usb_cam',
+        executable='usb_cam_node_exe',
+        name='usb_cam',
+        parameters=[{
+            'video_device': '/dev/video0',
+            'pixel_format': 'mjpeg2rgb',
+            'image_width': 640,
+            'image_height': 480,
+        }],
+    )
+
+    aruco_node = Node(
+        package='aruco_opencv',
+        executable='aruco_tracker_autostart',
+        name='aruco_tracker',
+        parameters=[{
+            'cam_base_topic': '/image_raw',
+            'marker_size': 0.1,
+        }],
+    )
+
+    docking_controller_node = Node(
+        package='aruco_detector',
+        executable='aruco_docking_controller',
+        name='aruco_docking_controller',
+        output='screen',
+        parameters=[{
+            'kp': 0.5,
+            'ki': 0.01,
+            'kd': 0.1,
+            'control_rate': 20.0,
+            'error_tolerance': 0.02,
+            'max_linear_x': 0.5,
+        }],
+    )
+
     waypoint_client_node = Node(
         package='waypoint_client',
         executable='waypoint_client_node',
@@ -32,6 +69,9 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        usb_cam_node,
+        aruco_node,
+        docking_controller_node,
         robot_control_launch,
         waypoint_server_node,
         delayed_client,

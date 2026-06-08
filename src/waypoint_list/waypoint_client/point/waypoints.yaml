@@ -5,8 +5,11 @@ waypoints:
     duration: 3
   - x: 0.8
     y: 0.0
-    yaw: 1.0
+    yaw: 1.56
     duration: 2
+  - aruco_docking:
+      id: 43
+      offset_z: 1.0
   # - x: -1.0
   #   y: 0.0
   #   yaw: 0.0

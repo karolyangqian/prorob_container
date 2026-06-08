@@ -4,6 +4,7 @@ from rclpy.node import Node
 from geometry_msgs.msg import Quaternion
 from std_msgs.msg import String, Bool
 from waypoint_action.action import WaypointSet
+from aruco_msg.msg import ArucoDocking
 from rclpy.action import ActionClient
 from ament_index_python.packages import get_package_share_directory
 
@@ -13,6 +14,7 @@ class waypointActionClient (Node):
         self.yaw = 0.0
         self.waypoint_queue = []
         self.done_pub = self.create_publisher(Bool, "/waypoint_done", 10)
+        self.docking_pub = self.create_publisher(ArucoDocking, "/cmd_aruco_docking", 10)
         self._action_client = ActionClient(
             self, 
             WaypointSet, 
@@ -49,6 +51,17 @@ class waypointActionClient (Node):
             return
         
         wp = self.waypoint_queue.pop(0)
+
+        if "aruco_docking" in wp:
+            docking = wp["aruco_docking"]
+            msg = ArucoDocking()
+            msg.id = int(docking["id"])
+            msg.offset_z = float(docking["offset_z"])
+            self.docking_pub.publish(msg)
+            self.get_logger().info(f"Published aruco_docking: id={msg.id}, offset_z={msg.offset_z}")
+            self.send_next_waypoint()
+            return
+
         x = float(wp["x"])
         y = float(wp["y"])
         yaw = float(wp["yaw"])

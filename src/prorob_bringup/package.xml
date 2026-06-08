@@ -9,9 +9,12 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <exec_depend>usb_cam</exec_depend>
+  <exec_depend>aruco_opencv</exec_depend>
   <exec_depend>robot_control</exec_depend>
   <exec_depend>waypoint_server</exec_depend>
   <exec_depend>waypoint_client</exec_depend>
+  <exec_depend>aruco_detector</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
 
