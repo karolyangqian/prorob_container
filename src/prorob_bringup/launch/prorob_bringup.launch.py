@@ -37,7 +37,7 @@ def generate_launch_description():
         name='aruco_tracker',
         parameters=[{
             'cam_base_topic': '/image_raw',
-            'marker_size': 0.1,
+            'marker_size': 0.07,
         }],
     )
 

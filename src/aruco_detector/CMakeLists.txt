@@ -13,6 +13,7 @@ find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(aruco_msg REQUIRED)
 find_package(aruco_opencv_msgs REQUIRED)
+find_package(tf2 REQUIRED)
 
 add_executable(aruco_docking_controller src/aruco_docking_controller.cpp)
 ament_target_dependencies(aruco_docking_controller
@@ -20,6 +21,7 @@ ament_target_dependencies(aruco_docking_controller
   geometry_msgs
   aruco_msg
   aruco_opencv_msgs
+  tf2
 )
 
 install(TARGETS
